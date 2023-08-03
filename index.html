@@ -1,1 +1,228 @@
-<h1>Hello world</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test page</title>
+    <style>
+
+  html {
+    background-color: bisque;
+  }
+
+  body {
+    width: 70%;
+    min-height: 550px;
+    margin: 0 auto;
+    border: 2px solid burlywood;
+    background-color: rgb(245, 241, 220)
+  }
+
+   #slider {
+    width: 600px;
+    margin: 0 auto;
+   }
+
+   h1 {
+    text-align: center;
+    color: brown
+   }
+
+   a {
+    font-size: 40px;
+    text-decoration: none;
+    position: absolute
+   }
+
+   #left {
+    top: 450px;
+    left: 290px;
+   }
+
+   #right {
+    top: 450px;
+    left: 370px;
+   }
+
+   #slider2 {
+    position: absolute;
+    top: 400px;
+    left: 300px;
+    font-size: 25px;
+    font-weight: bold;
+   }
+
+   #slider3 {
+    position: absolute;
+    top: 320px;
+    left: 800px;
+   }
+
+   #slider4 {
+    position: absolute;
+    top: 70px;
+    left: 580px;
+   }
+
+   
+   #left2 {
+    top: 450px;
+    left: 790px;
+   }
+
+   #right2 {
+    top: 450px;
+    left: 900px;
+   }
+
+   .noActive {
+    display: none;
+   }
+
+
+
+  </style>       
+</head>
+<body>
+
+<div id="slider">
+  <h1></h1>
+
+  <div id="slider4">
+    <img src="nature1.jpg" width="120" height="120">
+    <img src="nature2.jpg" width="120" height="120" class="noActive">
+    <img src="nature3.jpg" width="120" height="120" class="noActive">
+  </div>
+  
+
+  <a href="#" id="left">←</a>
+  <a href="#" id="right">→</a>
+  <div id="slider2"></div>
+  <img id="slider3" src="" width="120" height="120">
+  <a href="#" id="left2">←</a>
+  <a href="#" id="right2">→</a>
+
+</div>
+  
+
+  
+  <script>
+    "use strict";
+    let slider = document.querySelector('h1');
+    let slider2 = document.querySelector('#slider2');
+    let right = document.querySelector('#right');
+    let left = document.querySelector('#left');
+    let img = document.querySelector('#slider3');
+    let texts = ['Вітаємо', 'на нашому', 'сайті!'];
+    let texts2 = ['Іграшки', 'Тварини', 'Подарунки'];
+    let pictures = ['smile.png', 'smile2.png', 'smile3.png'];
+    let slider4 = document.querySelector('#slider4');
+    let pictures2 = document.querySelectorAll('#slider4 img');
+    let counter = -1;
+    let counter2 = 0;
+    let counter3 = 0;
+    let counter4 = 0;
+    let counter5 = -1;
+    slider2.textContent = texts2[0];
+    img.src = pictures[0];
+
+    setInterval(function() {
+      counter++;
+      slider.textContent = texts[counter];
+      if(counter == texts.length - 1) {
+        counter = -1;
+      }
+    }, 2000)
+
+    let timer2 = setInterval(function() {
+      counter3++;
+      img.src = pictures[counter3];
+      if(counter3 == pictures.length - 1) {
+        counter3 = 0;
+      }
+    }, 4000)
+
+    //слайдер з картинок, що знаходяться в HTML коді
+    setInterval(function() {
+      counter5++;
+      pictures2[counter5].classList.add('noActive');
+      if(counter5 < pictures2.length - 1) {
+        pictures2[counter5 + 1].classList.remove('noActive');
+      } 
+      if(counter5 == pictures2.length - 1) {
+        pictures2[0].classList.remove('noActive');
+        counter5 = -1;
+      }
+
+    }, 3000)
+
+    right.addEventListener('click', function() {
+      left.classList.remove('noActive');
+      counter2++;
+      slider2.textContent = texts2[counter2];
+      //слайди ходять по колу
+      /*if(counter2 == texts2.length) {
+        slider2.textContent = texts2[0];
+        counter2 = 0;
+      }*/
+
+      //слайди не прокручуються по досягненню крайнього положення
+      if(counter2 >= texts2.length) {
+        slider2.textContent = texts2[texts2.length - 1];
+        counter2 = texts2.length - 1;
+      }
+      if(counter2 >= texts2.length - 1) {
+        this.classList.add('noActive');
+      }
+    })
+
+    left.addEventListener('click', function() {
+      right.classList.remove('noActive');
+      counter2--;
+      slider2.textContent = texts2[counter2];
+      //слайди ходять по колу
+      /*if(counter2 == -1) {
+        slider2.textContent = texts2[texts2.length - 1];
+        counter2 = texts2.length - 1;
+      }*/
+
+      //слайди не прокручуються по досягненню крайнього положення
+      if(counter2 <= -1) {
+        slider2.textContent = texts2[0];
+        counter2 = 0;
+      }
+      if(counter2 == 0) {
+        this.classList.add('noActive');
+      }
+
+    })
+
+    right2.addEventListener('click', function() {
+      clearInterval(timer2);
+      counter4++;
+      slider3.src = pictures[counter4];
+      //слайди ходять по колу
+      if(counter4 == pictures.length) {
+        slider3.src = pictures[0];
+        counter4 = 0;
+      }
+    })
+
+    left2.addEventListener('click', function() {
+      clearInterval(timer2);
+      counter4--;
+      slider3.src = pictures[counter4];
+      //слайди ходять по колу
+      if(counter4 == -1) {
+        slider3.src = pictures[pictures.length - 1];
+        counter4 = pictures.length - 1;
+      }
+    })
+    
+
+    
+  </script>
+
+</body>
+
+
+</html>
